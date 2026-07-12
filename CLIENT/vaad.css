@@ -1,0 +1,218 @@
+:root {
+    --bg-main: #fcfcfc; /* רקע כללי בהיר מאוד וכמעט לבן */
+    --bg-card: #ffffff; /* כרטיסים לבנים נקיים לחלוטין */
+    --text-dark: #111111; /* טקסט שחור דק וקריא */
+    --text-muted: #777777; /* טקסט משני אפור עדין */
+    --border-light: #e5e5e5; /* קווים מפרידים דקים מאוד ובהירים */
+    --button-bg: #111111;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    direction: rtl;
+    margin: 0;
+    padding: 40px;
+    letter-spacing: 0.3px;
+}
+
+/* Header עדין ודק */
+.arch-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.arch-header h1 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.arch-header .status {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* גריד מרווח */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 35px;
+    margin-bottom: 40px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* כרטיסים לבנים עם מסגרת דקה במקום שחור */
+.arch-card {
+    background-color: var(--bg-card);
+    color: var(--text-dark);
+    padding: 35px;
+    border-radius: 0;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.arch-card h2 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: var(--text-dark);
+}
+
+/* טבלאות אלגנטיות */
+.arch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.arch-table th {
+    text-align: right;
+    padding: 12px 8px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 400;
+}
+
+.arch-table td {
+    padding: 16px 8px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+/* כפתורים מודרניים */
+.btn-arch {
+    background-color: var(--button-bg);
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
+    border-radius: 0;
+    margin-left: 5px;
+}
+
+.btn-arch:hover {
+    background-color: #333333;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #cccccc;
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: #f5f5f5;
+}
+
+/* טפסים ושדות קלט בהירים */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    color: var(--text-dark);
+    padding: 10px 12px;
+    box-sizing: border-box;
+    font-size: 13px;
+    border-radius: 0;
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--text-dark);
+    outline: none;
+}
+
+/* תגיות סטטוס עדינות */
+.badge {
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+}
+.badge.paid { 
+    background-color: #e8f5e9; 
+    color: #2e7d32; 
+}
+.badge.debt { 
+    background-color: #ffebee; 
+    color: #c62828; 
+}
+
+/* עיצוב מערכת פניות וצ'אט */
+.chat-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border-light);
+    padding-top: 20px;
+}
+
+.chat-box {
+    background: #f9f9f9;
+    border: 1px solid var(--border-light);
+    height: 200px;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.msg {
+    padding: 10px 14px;
+    max-width: 75%;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.msg.tenant {
+    background-color: #eef0f2;
+    color: var(--text-dark);
+    align-self: flex-start;
+}
+
+.msg.vaad {
+    background-color: var(--button-bg);
+    color: #ffffff;
+    align-self: flex-end;
+}
+
+input[type="file"]::file-selector-button {
+    background: #f0f0f0;
+    color: var(--text-dark);
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    margin-left: 10px;
+}

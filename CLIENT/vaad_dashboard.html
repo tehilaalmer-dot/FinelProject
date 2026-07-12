@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMEPULSE / ARCH - Vaad Dashboard</title>
+    <link rel="stylesheet" href="vaad.css">
+</head>
+<body>
+
+    <!-- Header אדריכלי -->
+    <header class="arch-header">
+        <h1>HOMEPULSE / ARCH</h1>
+        <div class="status">מגדל המאה / תל אביב-יפו / <strong>ממשק ועד הבית</strong></div>
+    </header>
+
+    <main class="dashboard-grid">
+        
+        <!-- צד ימין: טבלאות ניהול (גבייה ופניות) -->
+        <div class="main-panel" style="display: flex; flex-direction: column; gap: 25px;">
+            
+            <!-- 1. טבלת מעקב גבייה -->
+            <section class="arch-card">
+                <h2>FINANCIAL OVERVIEW / טבלת מעקב גבייה</h2>
+                <table class="arch-table">
+                    <thead>
+                        <tr>
+                            <th>דירה</th>
+                            <th>שם דייר</th>
+                            <th>סטטוס חודשי</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                    <tbody id="billing-table-body">
+                        <tr>
+                            <td>דירה 12</td>
+                            <td>ישראל ישראלי</td>
+                            <td><span class="badge debt">חייב (₪100)</span></td>
+                            <td>
+                            <button class="btn-arch" onclick="markAsPaid(12)">סימון כטופל</button>
+                           <button class="btn-arch btn-secondary" style="color: #111111; border: 1px solid #111111;" onclick="sendReminder(12)">שלח תזכורת</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>דירה 14</td>
+                            <td>רוני לוי</td>
+                            <td><span class="badge paid">שולם</span></td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 2. מערכת ניהול פניות וצ'אט (Socket) -->
+            <section class="arch-card">
+                <h2>BUILDING APPLICATIONS / ניהול פניות בבניין (סוקט)</h2>
+                <table class="arch-table" style="margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th>דירה</th>
+                            <th>נושא התקלה</th>
+                            <th>סטטוס</th>
+                            <th>פעולה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>דירה 12</td>
+                            <td>נזילה קלה בקומה 3 ליד המעליות</td>
+                            <td><span style="color: #f57c00;">בטיפול</span></td>
+                            <td><button class="btn-arch" onclick="openChat(12)">פתח התכתבות</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- אזור הצ'אט המשותף של הסוקט -->
+                <div class="chat-container" id="chat-section" style="display: none;">
+                    <div>
+                        <span style="font-size:12px; color:var(--text-muted);">צ'אט מול דירה 12</span>
+                        <div class="chat-box" id="chat-messages">
+                            <div class="msg tenant">שלום, יש נזילה מים קלה בקומה 3 ליד המעליות.</div>
+                            <div class="msg vaad">היי, תודה על הדיווח. חברת האחזקה עודכנה ותגיע בשעה הקרובה.</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="form-group">
+                            <label>שנה סטטוס פנייה</label>
+                            <select class="form-control">
+                                <option>פתוח</option>
+                                <option selected>בטיפול</option>
+                                <option>סגור</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="הקלד הודעה לדייר...">
+                            <button class="btn-arch" style="width: 100%; margin-top: 10px;">שלח הודעה בזמן אמת</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- צד שמאל: טפסים ועדכונים (הוצאות ולוח מודעות) -->
+        <div class="side-panel" style="display: flex; flex-direction: column; gap: 25px;">
+            
+            <!-- ניהול הוצאות קופה -->
+            <section class="arch-card">
+                <h2>EXPENSES / ניהול הוצאות קופה</h2>
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label>סוג ההוצאה</label>
+                        <input type="text" class="form-control" placeholder="לדוגמה: חשמל, מנקה">
+                    </div>
+                    <div class="form-group">
+                        <label>סכום בש"ח</label>
+                        <input type="number" class="form-control" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>העלאת קבלה (שמירת נתיב ב-DB)</label>
+                        <input type="file" class="form-control">
+                    </div>
+                    <button class="btn-arch" style="width: 100%;">הוסף הוצאה</button>
+                </form>
+            </section>
+
+            <!-- פרסום הודעה ללוח -->
+            <section class="arch-card">
+                <h2>ANNOUNCEMENT / פרסום הודעה ללוח</h2>
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label>תוכן העדכון</label>
+                        <textarea class="form-control" rows="4" placeholder="כתבי עדכון ללוח המודעות..."></textarea>
+                    </div>
+                    <button class="btn-arch" style="width: 100%;">פרסם בלוח</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function markAsPaid(apartment) {
+            alert('דירה ' + apartment + ' סומנה כטופלה באופן ידני.');
+        }
+
+        function sendReminder(apartment) {
+            alert('תזכורת תשלום נשלחה בהצלחה לדירה ' + apartment);
+        }
+
+        function openChat(apartment) {
+            document.getElementById('chat-section').style.display = 'grid';
+        }
+    </script>
+</body>
+</html>
