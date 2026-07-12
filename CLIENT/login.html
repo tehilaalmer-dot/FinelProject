@@ -1,0 +1,50 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>התחברות למערכת - HOMEPULSE</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container-centered {
+            min-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="arch-nav">
+        <a href="index.html" class="arch-logo">HOMEPULSE <span>/ ARCH</span></a>
+    </nav>
+
+    <main class="arch-container auth-container-centered">
+        <div class="arch-card" style="width: 100%; max-width: 450px;">
+            <h3 class="arch-card-title">PORTAL LOGIN / כניסת דיירים</h3>
+            
+            <!-- מוכן לחיבור לשרת (שדות אינפוט עם מזהים מדויקים) -->
+            <form id="loginForm">
+                <div class="arch-form-group">
+                    <label for="email">דואר אלקטרוני</label>
+                    <input type="email" id="email" name="email" class="arch-control" placeholder="name@example.com" required>
+                </div>
+                
+                <div class="arch-form-group">
+                    <label for="password">סיסמת גישה</label>
+                    <input type="password" id="password" name="password" class="arch-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="arch-btn arch-btn-dark" style="width: 100%; margin-top: 1.5rem;">התחבר למערכת</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted);">
+                מגדל חדש בפלטפורמה? <a href="register.html" style="color: var(--text-dark); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--text-dark);">רישום בניין</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

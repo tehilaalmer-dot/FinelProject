@@ -1,0 +1,196 @@
+/* architecture-style.css */
+:root {
+    --primary-font: 'Helvetica Neue', Arial, sans-serif;
+    --text-dark: #111111;
+    --text-muted: #777777;
+    --bg-light: #fbfbfb;
+    --border-color: #e5e5e5;
+    --success-accent: #059669; /* ירוק שקט מאוד לתשלומים, לא זוהר */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--primary-font);
+    direction: rtl;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 📐 סרגל ניווט עליון - מינימליסטי ודק */
+.arch-nav {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+}
+
+.arch-logo {
+    font-size: 1.4rem;
+    font-weight: 200;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+.arch-logo span {
+    font-weight: 600;
+}
+
+.user-tag {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* 🧱 מבנה וגריד מרכזי */
+.arch-container {
+    max-width: 1300px;
+    margin: 3rem auto;
+    padding: 0 3rem;
+}
+
+.arch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem; /* רווחים גדולים ואווריריים בין האלמנטים */
+}
+
+/* 🏛️ כרטיס אדריכלי (בלי צללים כבדים, מבוסס קווים דקים) */
+.arch-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.arch-card-title {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--text-dark);
+}
+
+/* 📝 עיצוב טפסים - קו תחתון בלבד, שקט ונקי */
+.arch-form-group {
+    margin-bottom: 2rem;
+}
+
+.arch-form-group label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.arch-control {
+    width: 100%;
+    padding: 0.75rem 0;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s ease;
+}
+
+.arch-control:focus {
+    outline: none;
+    border-bottom-color: var(--text-dark);
+}
+
+/* 🔘 כפתורים חדים ושטוחים (Sharp & Flat) */
+.arch-btn {
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--text-dark);
+    background: transparent;
+    color: var(--text-dark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.arch-btn:hover {
+    background: var(--text-dark);
+    color: #ffffff;
+}
+
+.arch-btn-dark {
+    background: var(--text-dark);
+    color: #ffffff;
+}
+
+.arch-btn-dark:hover {
+    background: #333333;
+}
+
+/* 💬 פריטי לוח מודעות / הודעות */
+.arch-list-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.arch-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.arch-item-title {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+
+.arch-item-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* 💳 מודל סליקה צף אדריכלי */
+.arch-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.arch-modal-content {
+    background: #ffffff;
+    padding: 3rem;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--text-dark);
+}
