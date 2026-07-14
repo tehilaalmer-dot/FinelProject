@@ -2,11 +2,14 @@ import express from 'express';
 import cors from 'cors'; 
 import db from './config/db.js'; 
 import buildingRoutes from './routes/buildingRoutes.js'; // ייבוא הראוטר
-
+import ticketRoutes from './routes/ticketRoutes.js';
+import expenseRoutes from './routes/expenseRoutes.js';
 const app = express();
 app.use(cors()); // מאפשר גישה מדפדפנים חיצוניים
 app.use(express.json());
 app.use('/api', buildingRoutes);
+app.use('/api/tickets', ticketRoutes);
+app.use('/api/expenses', expenseRoutes);
 
 
 // נתיב לבדיקת חיבור למסד הנתונים
