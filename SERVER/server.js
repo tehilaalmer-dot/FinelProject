@@ -1,15 +1,20 @@
 import express from 'express';
-import cors from 'cors';
-import db from './db.js'; // נקודה וסלאש בתחילת הנתיב
-// תמחקי את ה- .js מאמצע הנתיב ותוודאי שהוא נמצא רק בסוף!
-import buildingsRouter from './ROUTES.js'; // נקודה וסלאש בתחילת הנתיב
-const app = express();
-app.use(cors());
-app.use(express.json());
 
-// 4. חיבור הראוטר לאפליקציה עם הקידומת /api
-// זה מה שיגרום ל- http://localhost:3000/api/buildings לעבוד!
-app.use('/api', buildingsRouter);
+const app = express();
+import cors from 'cors'; 
+import db from './config/db.js'; 
+import buildingRoutes from './routes/buildingRoutes.js'; // ייבוא הראוטר
+import buildingAnnouncementsRouter from './routes/buildingAnnouncementsRouter.js'; // ייבוא הראוטר
+import usersRouter from './routes/usersRouter.js'; // ייבוא הראוטר
+
+
+
+app.use(cors()); // מאפשר גישה מדפדפנים חיצוניים
+app.use(express.json());
+app.use('/api', buildingRoutes);
+app.use('/api', buildingAnnouncementsRouter);
+app.use('/api', usersRouter);
+
 
 // נתיב לבדיקת חיבור למסד הנתונים
 app.get('/test-db', async (req, res) => {
