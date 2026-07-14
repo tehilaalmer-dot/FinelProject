@@ -33,7 +33,7 @@ const expenseController = {
     getBuildingExpenses: async (req, res) => {
         try {
             const { buildingId } = req.params;
-            
+            console.log("➡️ הגיע לקונטרולר! מזהה הבניין:", buildingId);
             const expenses = await Expense.getByBuilding(buildingId);
             res.status(200).json(expenses);
         } catch (error) {

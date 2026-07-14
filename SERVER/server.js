@@ -7,7 +7,7 @@ import db from './config/db.js';
 import buildingRoutes from './routes/buildingRoutes.js'; // ייבוא הראוטר
 import buildingAnnouncementsRouter from './routes/buildingAnnouncementsRouter.js'; // ייבוא הראוטר
 import usersRouter from './routes/usersRouter.js'; // ייבוא הראוטר
-import residentRoutes from './routes/residentRoutes.js';
+
 
 
 
@@ -18,12 +18,12 @@ app.use('/api', buildingAnnouncementsRouter);
 app.use('/api', usersRouter);
 import ticketRoutes from './routes/ticketRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
+import authRoutes from '../routes/authRoutes.js';
 
 
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/expenses', expenseRoutes);
-app.use('/api', residentRoutes);
-
+app.use('/api/auth', authRoutes);
 
 // נתיב לבדיקת חיבור למסד הנתונים
 app.get('/test-db', async (req, res) => {
