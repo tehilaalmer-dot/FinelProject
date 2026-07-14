@@ -1,18 +1,42 @@
-import BuildingModel from "../MODELS.js";
 
-const getAllBuildings = async (req, res) => {
+import Building from "../models/modleBuilding.js";
+
+const buildingsController = {
+    // קבלת בניין לפי מזהה
+    async getBuildingById(req, res) {
+        try {  
+            const building = await Building.findById(req.params.id);
+            if (!building) {
+                return res.status(404).json({ message: "Building not found" });
+            }
+            res.json(building);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+   async createBuilding(req, res) {
+        try {
+            const { address, city, num_apartments } = req.body;
+            
+            //בדיקת תקינות
+            if (!address || !city || !num_apartments) {
+                return res.status(400).json({ message: "All fields are required" });
+            }
+
+            const newBuilding = await Building.create({ address, city, num_apartments });
+            res.status(201).json(newBuilding);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+    async getAllBuildings(req, res) {
     try {
-        // קריאה לפונקציה המעודכנת מהמודל
-        const buildings = await BuildingModel.getAll();
-        
-        // החזרת מערך הבניינים ישירות לקליינט
+        const buildings = await Building.getAllBuildings();
         res.json(buildings);
     } catch (error) {
-        console.error('Error fetching buildings:', error);
-        res.status(500).json({ error: 'Internal server error', details: error.message });
+        res.status(500).json({ message: error.message });
     }
+},
 };
+export default buildingsController;
 
-export default {
-    getAllBuildings,
-};

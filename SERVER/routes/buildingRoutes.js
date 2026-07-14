@@ -6,6 +6,6 @@ const router = express.Router(); // תיקון הגדרת הראוטר
 router.get("/buildings/:id", BuildingsController.getBuildingById);
 router.get("/buildings", BuildingsController.getAllBuildings);
 router.post("/buildings", BuildingsController.createBuilding);
-
+    
 
 export default router;
