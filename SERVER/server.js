@@ -1,8 +1,13 @@
 import express from 'express';
-import db from './db.js';
-const app = express();
+import cors from 'cors'; 
+import db from './config/db.js'; 
+import buildingRoutes from './routes/buildingRoutes.js'; // ייבוא הראוטר
 
+const app = express();
+app.use(cors()); // מאפשר גישה מדפדפנים חיצוניים
 app.use(express.json());
+app.use('/api', buildingRoutes);
+
 
 // נתיב לבדיקת חיבור למסד הנתונים
 app.get('/test-db', async (req, res) => {
