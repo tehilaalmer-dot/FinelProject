@@ -18,7 +18,7 @@ app.use('/api', buildingAnnouncementsRouter);
 app.use('/api', usersRouter);
 import ticketRoutes from './routes/ticketRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
-import authRoutes from '../routes/authRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 
 app.use('/api/tickets', ticketRoutes);

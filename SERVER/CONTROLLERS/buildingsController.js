@@ -37,6 +37,15 @@ const buildingsController = {
         res.status(500).json({ message: error.message });
     }
 },
+async deleteBuilding(req, res) {
+    try {
+        const { id } = req.params;
+        await Building.delete(id); // הפעלת המחיקה במודל
+        res.json({ success: true, message: "Building deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 };
 export default buildingsController;
 

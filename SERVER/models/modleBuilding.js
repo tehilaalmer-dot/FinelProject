@@ -16,7 +16,11 @@ const Building = {
             [address, city, num_apartments]
         );
         return { idbuildings: result.insertId, address, city, num_apartments };
-    }
+    },
+    delete: async (id) => {
+    const [result] = await db.query('DELETE FROM buildings WHERE idbuildings = ?', [id]);
+    return result;
+}
 };
 
 export default Building;
