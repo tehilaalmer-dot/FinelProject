@@ -1,4 +1,4 @@
-import userModel from '../models/modelusers.js'; // ודאי שהנתיב והשם של קובץ המודל שלך מדויקים!
+import userModel from '../models/userModel.js'; // ודאי שהנתיב והשם של קובץ המודל שלך מדויקים!
 
 // 1. שליפת כל המשתמשים
 const getAllUsers = async (req, res) => {
