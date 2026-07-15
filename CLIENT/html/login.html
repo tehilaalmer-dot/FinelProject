@@ -1,0 +1,152 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>רישום דייר חדש - HOMEPULSE</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* דריסת חסימת הגלילה של ה-CSS הכללי - רק עבור דף זה */
+        html, body {
+            height: auto !important;
+            min-height: 100% !important;
+            overflow: auto !important; /* מחזיר את הגלילה לפעולה */
+            overflow-y: scroll !important; /* מבטיח גלילה אנכית */
+        }
+
+        /* מניעת חיתוך הפאנלים והתאמה לתוכן נגלל */
+        .main-layout {
+            height: auto !important;
+            min-height: 100vh;
+        }
+
+        .sidebar-panel {
+            height: auto !important;
+            min-height: 100vh;
+            overflow-y: visible !important;
+        }
+
+        /* סגנון כיווניות ועיצוב לשדות הטקסט והבחירה */
+        input, select {
+            direction: rtl;
+        }
+
+        /* עיצוב מותאם אישית לתיבת הבחירה (Select) כדי שתראה אחידה */
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23777777' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position: left 0.5rem center;
+            background-size: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        /* התאמה למובייל ומסכים קטנים */
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .hero-panel {
+                padding: 2rem;
+                min-height: auto;
+            }
+            .sidebar-panel {
+                padding: 3rem 2rem;
+                background-color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="arch-nav">
+        <a href="index.html" class="arch-logo">HOMEPULSE <span>/ ARCH</span></a>
+    </nav>
+
+    <main class="arch-container auth-container-centered">
+        <!-- הרחבנו מעט את הכרטיס כדי שיהיה מקום נוח לכל השדות החדשים -->
+        <div class="arch-card" style="width: 100%; max-width: 500px; margin-top: 1rem; margin-bottom: 2rem;">
+            <h3 class="arch-card-title">RESIDENT REGISTRATION / רישום דייר</h3>
+            
+            <!-- מוכן לחיבור לשרת (מזהים מדויקים התואמים לתמונה ול-Controller) -->
+            <form id="registerForm">
+                
+                <!-- 1. שם מלא (תואם לשדה full_name בתמונה) -->
+                <div class="arch-form-group">
+                    <label for="fullName">שם מלא (עברית/אנגלית)</label>
+                    <input type="text" id="fullName" name="fullName" class="arch-control" placeholder="ישראל ישראלי" required>
+                </div>
+
+                <!-- 2. דואר אלקטרוני (תואם לשדה email בתמונה) -->
+                <div class="arch-form-group">
+                    <label for="email">דואר אלקטרוני</label>
+                    <input type="email" id="email" name="email" class="arch-control" placeholder="name@example.com" required>
+                </div>
+                
+                <!-- 3. סיסמת גישה (תואם לשדה user_password בתמונה) -->
+                <div class="arch-form-group">
+                    <label for="password">סיסמת גישה (לפחות 6 תווים)</label>
+                    <input type="password" id="password" name="password" class="arch-control" placeholder="••••••••" minlength="6" required>
+                   
+                </div>
+
+                <!-- 4. טלפון (תואם לשדה phone - אופציונלי אך מומלץ) -->
+                <div class="arch-form-group">
+                    <label for="phone">מספר טלפון (אופציונלי)</label>
+                    <input type="tel" id="phone" name="phone" class="arch-control" placeholder="050-1234567" pattern="[0-9]{3}-?[0-9]{7}">
+                </div>
+                           <!-- שדה עיר -->
+<div class="form-group">
+    <label for="city">עיר</label>
+    <input type="text" id="city" name="city" class="form-control" placeholder="למשל: תל אביב" required>
+</div>
+
+<!-- שדה רחוב ומספר בניין מחובר -->
+<div class="form-group">
+    <label for="street_and_number">רחוב ומספר בניין</label>
+    <input type="text" id="street_and_number" name="street_and_number" class="form-control" placeholder="למשל: הרצל 10" required>
+</div>
+
+                <!-- 5. שורת נתוני דירה (שימוש ב-Flexbox לאותו עיצוב) -->
+                <div style="display: flex; gap: 1rem;">
+                    <!-- מספר דירה (תואם לשדה apartmentnumber החובה בתמונה) -->
+                    <div class="arch-form-group" style="flex: 1;">
+                        <label for="apartmentNumber">מספר דירה</label>
+                        <input type="number" id="apartmentNumber" name="apartmentNumber" class="arch-control" placeholder="12" min="1" required>
+                    </div>
+                    
+                    <!-- קומה (תואם לשדה floor - אופציונלי בתמונה) -->
+                    <div class="arch-form-group" style="flex: 1;">
+                        <label for="floor">קומה (אופציונלי)</label>
+                        <input type="number" id="floor" name="floor" class="arch-control" placeholder="3" min="0">
+                    </div>
+                </div>
+
+                <!-- 6. תפקיד (תואם לשדה role החובה בתמונה) -->
+                <div class="arch-form-group">
+                    <label for="role">תפקיד במערכת</label>
+                    <select id="role" name="role" class="arch-control" required style="background-position: left 0.75rem center;">
+                        <option value="" disabled selected hidden>בחר/י את תפקידך</option>
+                        <option value="dayar">דייר/ת</option>
+                        <option value="vaad">חבר/ת ועד בית</option>
+                    </select>
+                </div>
+    
+
+                <!-- 7. כפתור שליחה - אותו עיצוב כמו בלוגין -->
+                <button type="submit" class="arch-btn arch-btn-dark" style="width: 100%; margin-top: 1.5rem;">צור חשבון חדש</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--text-muted);">
+                כבר יש לך חשבון? <a href="index.html" style="color: var(--text-dark); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--text-dark);">התחברות</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

@@ -32,7 +32,9 @@ const Building_announcements = {
             vaad_id, 
             content 
         };
-    }
+    },
+  
+
 };
 
 export default Building_announcements;

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/style.css">
+    <title>HOMEPULSE / ARCH - Super Admin</title>
+   
+        
+  
+</head>
+<body>
+
+    <header class="arch-header">
+        <h1>HOMEPULSE / ARCH</h1>
+        <div class="status">מערכת ארצית / <strong>ממשק מנהלת המערכת (Super Admin)</strong></div>
+    </header>
+
+    <main>
+        
+        <!-- כרטיס בניינים -->
+        <section class="arch-card">
+            <h2>BUILDINGS MANAGEMENT / ניהול בניינים במערכת</h2>
+            <table class="arch-table">
+                <thead>
+                    <tr>
+                        <th>מזהה בניין</th>
+                        <th>שם המגדל</th>
+                        <th>עיר / מיקום</th>
+                        <th>כמות דיירים</th>
+                        <th>פעולות ניהול</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#B-9021</strong></td>
+                        <td>מגדל המאה</td>
+                        <td>תל אביב-יפו</td>
+                        <td>48 דיירים</td>
+                        <td>
+                            <button class="btn-arch" onclick="deleteBuilding('#B-9021')">מחק בניין</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>#B-4412</strong></td>
+                        <td>מגדלי פנורמה</td>
+                        <td>חיפה</td>
+                        <td>32 דיירים</td>
+                        <td>
+                            <button class="btn-arch" onclick="deleteBuilding('#B-4412')">מחק בניין</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- כרטיס משתמשים -->
+        <section class="arch-card">
+            <h2>USERS MANAGEMENT / ניהול כלל המשתמשים</h2>
+            <table class="arch-table">
+                <thead>
+                    <tr>
+                        <th>שם מלא</th>
+                        <th>דואר אלקטרוני</th>
+                        <th>תפקיד במערכת</th>
+                        <th>שיוך בניין</th>
+                        <th>סטטוס</th>
+                        <th>פעולות ניהול</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ישראל ישראלי</strong></td>
+                        <td>israel@example.com</td>
+                        <td>דייר</td>
+                        <td>מגדל המאה</td>
+                        <td><span class="badge badge-active">פעיל</span></td>
+                        <td>
+                            <button class="btn-arch btn-secondary" onclick="toggleBlockUser('ישראל ישראלי', true)">חסום משתמש</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>משה כהן</strong></td>
+                        <td>moshe@example.com</td>
+                        <td>ועד בית</td>
+                        <td>מגדלי פנורמה</td>
+                        <td><span class="badge badge-blocked">חסום</span></td>
+                        <td>
+                            <button class="btn-arch btn-secondary" onclick="toggleBlockUser('משה כהן', false)">שחרר חסימה</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script>
+        function deleteBuilding(buildingId) {
+            if (confirm('האם את בטוחה שברצונך למחוק את בניין ' + buildingId + ' לחלוטין מהמערכת?')) {
+                alert('הבניין ' + buildingId + ' נמחק.');
+            }
+        }
+
+        function toggleBlockUser(userName, shouldBlock) {
+            const action = shouldBlock ? 'נחסם' : 'שוחרר מחסימה';
+            alert('המשתמש ' + userName + ' ' + action + ' בהצלחה.');
+        }
+    </script>
+</body>
+</html>

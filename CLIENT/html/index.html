@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="../css/style.css">
+    <title>MYS Style - HomePulse</title>
+   
+</head>
+<body>
+
+    <!-- שכבת התמונות המתחלפות אוטומטית ברקע -->
+    <div class="background-slider">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <!-- הגריד המרכזי של האתר -->
+    <div class="main-layout">
+        
+        <!-- חצי ימני: Hero & Logo -->
+        <div class="hero-panel">
+            <div class="logo">HOMEPULSE <span>/ ARCH</span></div>
+            
+            <div class="hero-title-area">
+                <h1>אדריכלות ניהול<br>מתקדמת.</h1>
+                <p>מערכת סינכרון דיגיטלית למגדלי יוקרה וקהילות מגורים מודרניות. שקיפות, שירותיות ויופי פונקציונלי בבניין שלך.</p>
+            </div>
+            
+            <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4); letter-spacing: 1px;">
+                © 2026 HOMEPULSE DIGITAL EXPERIENCE. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+
+        <!-- חצי שמאלי: טופס כניסה מוקפד, שקט ואירופאי -->
+        <div class="sidebar-panel">
+            <div class="panel-header">
+                <h2>התחברות לדאשבורד</h2>
+            </div>
+
+            <!-- מוכן לחיבור לשרת (שדות אינפוט עם מזהים מדויקים) -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">דואר אלקטרוני</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">סיסמת גישה</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-submit">כניסת דיירים</button>
+            </form>
+
+            <div class="switch-auth">
+                מגדל/דייר חדש בפלטפורמה? <a href="login.html">רישום</a>
+            </div>
+        </div>
+
+    </div>
+<script src="../js/index.js"></script>
+</body>
+</html>

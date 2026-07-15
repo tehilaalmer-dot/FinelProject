@@ -10,21 +10,29 @@ const user = {
         const [rows] = await db.query('SELECT * FROM users WHERE idusers = ?', [id]);
         return rows[0]; // מחזיר את האיבר הראשון או undefined
     },
+    // פונקציה למציאת משתמש לפי אימייל
+getByEmail: async (email) => {
+    const [rows] = await db.query(
+        `SELECT * FROM users WHERE email = ?`,
+        [email]
+    );
+    return rows[0]; // מחזיר את המשתמש אם נמצא, או undefined אם לא נמצא
+},
    create: async (userData) => {
+    // שליפת הנתונים עם ערכי ברירת מחדל כדי למנוע קריסות של ה-SQL
     const { 
         full_name, 
         email, 
         user_password, 
-        phone, 
-        apartmentnumber, 
-        floor, 
+        phone = null, 
+        apartmentnumber = null, 
+        floor = null, 
         role, 
-        building_id, // מתקבל מהטופס ב-Frontend
+        building_id = null, 
         status 
     } = userData;
 
-    // קביעת סטטוס ברירת מחדל אם לא נשלח סטטוס ספציפי
-    const userStatus = status || 'active'; // או 'active' בהתאם להחלטה שלך
+    const userStatus = status || 'active'; 
 
     const [result] = await db.query(
         `INSERT INTO users 
@@ -33,7 +41,6 @@ const user = {
         [full_name, email, user_password, phone, apartmentnumber, floor, role, userStatus, building_id]
     );
 
-    // טיפ אבטחה: מחזירים את האובייקט שנוצר, אבל *בלי* הסיסמה (לא בריא להחזיר סיסמה בקליינט!)
     return { 
         idusers: result.insertId, 
         full_name, 
