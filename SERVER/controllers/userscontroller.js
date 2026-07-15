@@ -77,10 +77,28 @@ const createUser = async (req, res) => {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'שגיאה ביצירת המשתמש החדש', details: error.message });
     }
+    
+};
+const updateUserStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body; // active או blocked
+
+        if (!status) {
+            return res.status(400).json({ error: 'נא לספק את הסטטוס החדש' });
+        }
+
+        await userModel.updateStatus(id, status);
+        res.json({ success: true, message: 'סטטוס המשתמש עודכן בהצלחה' });
+    } catch (error) {
+        console.error('Error updating status:', error);
+        res.status(500).json({ error: 'שגיאה בעדכון הסטטוס', details: error.message });
+    }
 };
 
 export default {
     getAllUsers,
     getUserById,
-    createUser
+    createUser,
+    updateUserStatus
 };

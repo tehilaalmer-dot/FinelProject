@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMEPULSE / ARCH - Super Admin</title>
+    <style>
+        :root {
+            --bg-main: #f3f4f6; /* רקע אפור-בטון בהיר, חם ומודרני */
+            --bg-card: #ffffff; /* כרטיסים לבנים שצפים מעל הרקע */
+            --text-dark: #1f2937; /* שחור-פחם אלגנטי */
+            --text-muted: #6b7280; /* אפור גרפיט עדין */
+            --border-light: #e5e7eb; /* קווים עדינים מאוד */
+            --accent-color: #111827; /* צבע כפתורים שחור עמוק */
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            direction: rtl;
+            margin: 0;
+            padding: 40px;
+            letter-spacing: 0.2px;
+        }
+
+        /* Header בעיצוב נקי ומופרד */
+        .arch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+
+        .arch-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin: 0;
+            color: var(--accent-color);
+        }
+
+        .arch-header .status {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* כרטיסים עם נפח, פינות מעוגלות וצל יוקרתי */
+        .arch-card {
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 35px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .arch-card h2 {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 18px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: var(--accent-color);
+        }
+
+        /* טבלאות מרווחות ומעוצבות */
+        .arch-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .arch-table th {
+            text-align: right;
+            padding: 14px 16px;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-light);
+            font-weight: 600;
+            background-color: #f9fafb;
+        }
+
+        .arch-table td {
+            padding: 18px 16px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+        }
+
+        .arch-table tr:hover {
+            background-color: #f9fafb; /* אפקט מעבר עדין על השורות */
+        }
+
+        /* כפתורים מודרניים עם פינות חצי-מעוגלות */
+        .btn-arch {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-arch:hover {
+            background-color: #374151;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #d1d5db;
+            color: var(--text-dark);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f4f6;
+            border-color: #9ca3af;
+            transform: none;
+        }
+
+        /* תגיות סטטוס צבעוניות בעדינות */
+        .badge {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .badge-active {
+            background-color: #def7ec;
+            color: #03543f;
+        }
+
+        .badge-blocked {
+            background-color: #fde8e8;
+            color: #9b1c1c;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="arch-header">
+        <h1>HOMEPULSE / ARCH</h1>
+        <div class="status">מערכת ארצית / <strong>ממשק מנהלת המערכת (Super Admin)</strong></div>
+    </header>
+
+    <main>
+        
+        <!-- כרטיס בניינים -->
+        <section class="arch-card">
+            <h2>BUILDINGS MANAGEMENT / ניהול בניינים במערכת</h2>
+            <table class="arch-table">
+                <thead>
+                    <tr>
+                        <th>מזהה בניין</th>
+                        <th>שם המגדל</th>
+                        <th>עיר / מיקום</th>
+                        <th>כמות דיירים</th>
+                        <th>פעולות ניהול</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>#B-9021</strong></td>
+                        <td>מגדל המאה</td>
+                        <td>תל אביב-יפו</td>
+                        <td>48 דיירים</td>
+                        <td>
+                            <button class="btn-arch" onclick="deleteBuilding('#B-9021')">מחק בניין</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>#B-4412</strong></td>
+                        <td>מגדלי פנורמה</td>
+                        <td>חיפה</td>
+                        <td>32 דיירים</td>
+                        <td>
+                            <button class="btn-arch" onclick="deleteBuilding('#B-4412')">מחק בניין</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- כרטיס משתמשים -->
+        <section class="arch-card">
+            <h2>USERS MANAGEMENT / ניהול כלל המשתמשים</h2>
+            <table class="arch-table">
+                <thead>
+                    <tr>
+                        <th>שם מלא</th>
+                        <th>דואר אלקטרוני</th>
+                        <th>תפקיד במערכת</th>
+                        <th>שיוך בניין</th>
+                        <th>סטטוס</th>
+                        <th>פעולות ניהול</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ישראל ישראלי</strong></td>
+                        <td>israel@example.com</td>
+                        <td>דייר</td>
+                        <td>מגדל המאה</td>
+                        <td><span class="badge badge-active">פעיל</span></td>
+                        <td>
+                            <button class="btn-arch btn-secondary" onclick="toggleBlockUser('ישראל ישראלי', true)">חסום משתמש</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>משה כהן</strong></td>
+                        <td>moshe@example.com</td>
+                        <td>ועד בית</td>
+                        <td>מגדלי פנורמה</td>
+                        <td><span class="badge badge-blocked">חסום</span></td>
+                        <td>
+                            <button class="btn-arch btn-secondary" onclick="toggleBlockUser('משה כהן', false)">שחרר חסימה</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+
+  <script src="admin_dashboard.js"></script>
+</body>
+</html>

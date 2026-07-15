@@ -52,6 +52,17 @@ getByEmail: async (email) => {
         status: userStatus,
         building_id 
     };
+},
+getByEmail: async (email) => {
+    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    return rows[0]; // מחזיר את המשתמש או undefined אם הוא לא קיים
+},
+updateStatus: async (userId, status) => {
+    const [result] = await db.query(
+        'UPDATE users SET status = ? WHERE idusers = ?',
+        [status, userId]
+    );
+    return result;
 }
 };
 

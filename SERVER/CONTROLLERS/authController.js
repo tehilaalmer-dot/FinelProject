@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from '../models/userModel.js';
+import User from '../models/modelusers.js';
 // הגדרת המפתח הסודי לחתימת הטוקנים
 const JWT_SECRET = process.env.JWT_SECRET || 'my_super_secret_key_123';
 const authController = {
@@ -25,11 +25,11 @@ const authController = {
 
             // יצירת המשתמש ב-DB עם הסיסמה המוצפנת
             await User.create({
-                name,
+               full_name: name,
                 email,
-                password: hashedPassword,
+                user_password: hashedPassword,
                 role,
-                building_id: building_id || null
+                 building_id: building_id || null
             });
 
             res.status(201).json({ success: true, message: "ההרשמה בוצעה בהצלחה!" });

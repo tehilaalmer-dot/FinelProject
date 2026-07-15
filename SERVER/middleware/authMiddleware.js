@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'super_secret_key_for_building_app';
+const JWT_SECRET = 'my_super_secret_key_123';
 
 /**
  * 🔒 1. בדיקה שהמשתמש בכלל מחובר (Authentication)
