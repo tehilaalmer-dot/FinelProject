@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from '../models/modelusers.js';
+import User from '../models/userModel.js';
 // הגדרת המפתח הסודי לחתימת הטוקנים
+
 const JWT_SECRET = process.env.JWT_SECRET || 'my_super_secret_key_123';
 const authController = {
     // 1. פונקציית ההרשמה (מצפינה סיסמה ושומרת ב-DB)
     async register(req, res) {
+        console.log("Register function started");
         const { name, email, password, role, building_id } = req.body;
 
         if (!name || !email || !password || !role) {
@@ -40,6 +42,9 @@ const authController = {
     },
     // 2. פונקציית ההתחברות (בודקת סיסמה ומנפיקה טוקן JWT)
     async login(req, res) {
+        console.log("Login function started");
+        console.log("Request body:", req.body);
+
         const { email, password } = req.body;
 
         if (!email || !password) {
@@ -52,9 +57,20 @@ const authController = {
             if (!user) {
                 return res.status(401).json({ message: "אימייל או סיסמה שגויים" });
             }
+            console.log("Password from user:", password);
+console.log("Password from DB:", user.user_password); // (או השם של השדה אצלך)
+
+if (!password || !user.user_password) {
+    return res.status(400).json({ message: "Password is missing in DB or request" });
+}
+
+// עכשיו ה-compare:
+
 
             // השוואת הסיסמה שהוזנה עם הסיסמה המוצפנת מה-DB
-            const isMatch = await bcrypt.compare(password, user.password);
+           // השוואת הסיסמה שהוזנה עם הסיסמה המוצפנת מה-DB
+// אנחנו מוודאים ששני הערכים הם מחרוזות (String)// שימוש ב-toString() מפורש כדי להבטיח שה-bcrypt יקבל מחרוזות רגילות
+const isMatch = await bcrypt.compare(password.toString(), user.user_password.toString());
             if (!isMatch) {
                 return res.status(401).json({ message: "אימייל או סיסמה שגויים" });
             }
@@ -85,7 +101,9 @@ const authController = {
             });
 
         } catch (error) {
-            res.status(500).json({ message: "שגיאה בתהליך ההתחברות", error: error.message });
+            // הדפסת השגיאה המלאה לטרמינל כדי שנוכל לראות מה הבעיה
+            console.error("DEBUG ERROR in login:", error);
+            res.status(500).json({ message: error.message });
         }
     }
 };
