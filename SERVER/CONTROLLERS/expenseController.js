@@ -4,7 +4,11 @@ const expenseController = {
     // יצירת הוצאה חדשה
     createExpense: async (req, res) => {
         try {
-            const { building_id, title, amount, expense_date, receipt_path } = req.body;
+            const { building_id, title, amount, expense_date } = req.body;
+            let receipt_path = null;
+            if (req.file) {
+                receipt_path = `/uploads/receipts/${req.file.filename}`;
+            }
 
             // ולידציה בסיסית - לוודא ששדות החובה נשלחו
             if (!building_id || !title || !amount || !expense_date) {
@@ -16,7 +20,7 @@ const expenseController = {
                 title,
                 amount,
                 expense_date,
-                receipt_path: receipt_path || null // קבלה היא אופציונלית
+                receipt_path
             });
 
             res.status(201).json({

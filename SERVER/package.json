@@ -1,7 +1,7 @@
 {
   "name": "vaad-bayit-project",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000F\u0000i\u0000n\u0000e\u0000l\u0000P\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000\r\u0000 \u0000#\u0000 \u0000F\u0000i\u0000n\u0000e\u0000l\u0000P\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000\r\u0000 \u0000",
+  "description": "Final project for Vaad Bayit dashboard",
   "homepage": "https://github.com/tehilaalmer-dot/FinelProject#readme",
   "bugs": {
     "url": "https://github.com/tehilaalmer-dot/FinelProject/issues"
@@ -23,7 +23,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
+    "jsonwebtoken": "^9.0.0",
+    "multer": "^2.2.0",
     "mysql2": "^3.22.6",
     "socket.io": "^4.8.3"
   }

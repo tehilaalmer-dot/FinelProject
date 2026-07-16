@@ -70,6 +70,17 @@ const user = {
         );
         return result;
     },
+    updateRole: async (userId, role) => {
+        const [result] = await db.query(
+            'UPDATE users SET role = ? WHERE idusers = ?',
+            [role, userId]
+        );
+        return result;
+    },
+    findVaadByBuilding: async (buildingId) => {
+        const [rows] = await db.query('SELECT * FROM users WHERE building_id = ? AND role = ?', [buildingId, 'vaad']);
+        return rows[0];
+    },
     getUsersByBuilding: async (buildingId) => {
         const [rows] = await db.query('SELECT * FROM users WHERE building_id = ?', [buildingId]);
         return rows;

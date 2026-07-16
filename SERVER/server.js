@@ -3,8 +3,12 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import db from './config/db.js';
 import Ticket from './models/ticketModel.js'; // הוספנו ייבוא של המודל
+import Building from './models/modleBuilding.js';
+import { protect } from './middleware/authMiddleware.js';
 
 // נתיבים
 import buildingRoutes from './routes/buildingRoutes.js';
@@ -12,6 +16,7 @@ import buildingAnnouncementsRouter from './routes/buildingAnnouncementsRouter.js
 import usersRouter from './routes/usersRouter.js';
 import ticketRoutes from './routes/ticketRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
 const app = express();
@@ -24,12 +29,17 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads',  'receipts')));
+
 // הגדרת הנתיבים
 app.use('/api', buildingRoutes);
 app.use('/api', buildingAnnouncementsRouter);
 app.use('/api', usersRouter);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/expenses', expenseRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use('/api/auth', authRoutes);
 
 

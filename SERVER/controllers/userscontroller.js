@@ -107,10 +107,35 @@ const updateUserStatus = async (req, res) => {
     }
 };
 
+// 4. העברת תפקיד יו"ר ועד לבניין למשתמש אחר (מחליף תפקידים)
+const transferVaad = async (req, res) => {
+    try {
+        const { newVaadUserId, building_id } = req.body;
+        if (!newVaadUserId || !building_id) return res.status(400).json({ error: 'נא לספק newVaadUserId ו-building_id' });
+
+        // מציאת הוועד הנוכחי בבניין
+        const currentVaad = await userModel.findVaadByBuilding(building_id);
+
+        // אם יש יו"ר קיים ושונה מהמשתמש המבוקש - נחליף
+        if (currentVaad && String(currentVaad.idusers) !== String(newVaadUserId)) {
+            await userModel.updateRole(currentVaad.idusers, 'dayar'); // הפיכת הוועד הקודם לדייר
+        }
+
+        // נעדכן את המשתמש החדש להיות יו"ר
+        await userModel.updateRole(newVaadUserId, 'vaad');
+
+        res.json({ success: true, message: 'העברת יו"ר ועד בוצעה בהצלחה' });
+    } catch (error) {
+        console.error('Error transferring vaad:', error);
+        res.status(500).json({ error: 'שגיאה בהעברת יו"ר ועד', details: error.message });
+    }
+};
+
 export default {
     getAllUsers,
     getUserById,
     createUser,
     updateUserStatus,
-    getUsersByBuilding
+    getUsersByBuilding,
+    transferVaad
 };

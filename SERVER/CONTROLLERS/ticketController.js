@@ -31,27 +31,26 @@ const ticketController = {
     },
 
 createNewTicket: async (req, res) => {
-    // 1. קחי את כל הערכים מתוך ה-body, כולל ה-building_id שנשלח מהטופס
-    const { ticket_type, title, description, image_path, building_id } = req.body;
-    
-    // 2. בדיקה: אם לא הגיע building_id מהגוף, קחי מה-user (גיבוי)
+    // allow vaad to create on behalf of tenant by passing tenant_id
+    const { ticket_type, title, description, image_path, building_id, tenant_id } = req.body;
     const finalBuildingId = building_id || req.user.building_id;
 
-    console.log("--- מנסה ליצור טיקט חדש ---");
-    console.log("buildingId סופי לשימוש:", finalBuildingId);
-    console.log("tenantId:", req.user.id);
+    // determine tenant id: if vaad provided tenant_id use it, otherwise use req.user.id
+    let finalTenantId = req.user.id;
+    if (tenant_id && req.user.role === 'vaad') {
+        finalTenantId = tenant_id;
+    }
 
     if (!title || !description || !ticket_type) 
         return res.status(400).json({ message: 'נא למלא שדות חובה' });
-    
+
     try {
-        // 3. תשתמשי ב-finalBuildingId שחילצנו
         const result = await Ticket.createTicket(
-            finalBuildingId, 
-            req.user.id, 
-            ticket_type, 
-            title, 
-            description, 
+            finalBuildingId,
+            finalTenantId,
+            ticket_type,
+            title,
+            description,
             image_path
         );
         res.status(201).json({ message: 'הפנייה נפתחה!', ticketId: result.insertId });
