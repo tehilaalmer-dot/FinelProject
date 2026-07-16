@@ -4,6 +4,7 @@ import { protect, restrictTo } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.get("/users", protect, restrictTo('vaad', 'manager'), usersController.getAllUsers);
+router.get("/users/building/:buildingId", protect, restrictTo('vaad', 'manager'), usersController.getUsersByBuilding);
 router.get("/users/:id", protect, usersController.getUserById);
 router.post("/users", usersController.createUser);
 router.put('/users/:id/status', usersController.updateUserStatus);

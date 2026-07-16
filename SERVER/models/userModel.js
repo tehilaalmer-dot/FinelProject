@@ -69,6 +69,10 @@ const user = {
             [status, userId]
         );
         return result;
+    },
+    getUsersByBuilding: async (buildingId) => {
+        const [rows] = await db.query('SELECT * FROM users WHERE building_id = ?', [buildingId]);
+        return rows;
     }
 };
 

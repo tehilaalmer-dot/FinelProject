@@ -15,6 +15,17 @@ const getAllUsers = async (req, res) => {
         res.status(500).json({ error: 'שגיאה בשליפת המשתמשים', details: error.message });
     }
 };
+const getUsersByBuilding = async (req, res) => {
+    try {
+        const { buildingId } = req.params;
+        const users = await userModel.getUsersByBuilding(buildingId);
+        const safeUsers = users.map(({ user_password, ...safeUser }) => safeUser);
+        res.json(safeUsers);
+    } catch (error) {
+        console.error('Error fetching users by building:', error);
+        res.status(500).json({ error: 'שגיאה בשליפת המשתמשים לפי בניין', details: error.message });
+    }
+};
 
 // 2. שליפת משתמש ספציפי לפי מזהה (idusers)
 const getUserById = async (req, res) => {
@@ -100,5 +111,6 @@ export default {
     getAllUsers,
     getUserById,
     createUser,
-    updateUserStatus
+    updateUserStatus,
+    getUsersByBuilding
 };

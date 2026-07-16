@@ -16,6 +16,15 @@ const paymentsController = {
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
+    },
+    async getCollectionStatus (req, res) {
+        try {
+            const { buildingId, paymentMonth } = req.params;
+            const status = await Payment.getCollectionStatus(buildingId, paymentMonth);
+            res.json(status);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
     }
 };
 

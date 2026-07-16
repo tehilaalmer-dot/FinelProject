@@ -47,14 +47,14 @@ appendMessage: async (ticketId, senderRole, message) => {
         return rows;
     },
 
-    createTicket: async (buildingId, tenantId, ticketType, title, description, imagePath) => {
+    createTicket: async (building_id, tenantId, ticketType, title, description, imagePath) => {
         // כאן הוספנו chat_log ריק בהתחלה
         const query = `
             INSERT INTO private_tickets (building_id, tenant_id, ticket_type, title, description, image_path, chat_log)
             VALUES (?, ?, ?, ?, ?, ?, '[]')
         `;
         const [result] = await db.query(query, [
-            buildingId,
+            building_id,
             tenantId,
             ticketType,
             title,
