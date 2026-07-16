@@ -13,7 +13,7 @@ async function loadUsers() {
     try {
         const token = localStorage.getItem('token');
         
-        // אם אין טוקן בכלל - נעביר אותה ישר להתחברות
+       
         if (!token) {
             alert('אינך מחוברת! מעבירה אותך לדף ההתחברות...');
             window.location.href = 'login.html';
@@ -54,7 +54,7 @@ async function loadUsers() {
                     <td><strong>${user.full_name}</strong></td>
                     <td>${user.email}</td>
                     <td>${user.role}</td>
-                    <td>${user.building_name || 'לא שוייך'}</td>
+                    <td>${user.building_id || 'לא שוייך'}</td>
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>
                         <button class="btn-arch btn-secondary" onclick="toggleBlockUser('${user.idusers}', ${shouldBlock})">
@@ -98,12 +98,10 @@ async function loadBuildings() {
             tbody.innerHTML += `
                 <tr>
                     <td><strong>#B-${b.idbuildings}</strong></td>
-                    <td>${b.address}</td>
                     <td>${b.city}</td>
+                    <td>${b.street || 'לא צויין'}</td>
                     <td>${b.num_apartments} דירות</td>
-                    <td>
-                        <button class="btn-arch" onclick="deleteBuilding('${b.idbuildings}')">מחק בניין</button>
-                    </td>
+                   
                 </tr>
             `;
         });
@@ -142,23 +140,3 @@ async function toggleBlockUser(userId, shouldBlock) {
 }
 
 // 6. מחיקת בניין
-async function deleteBuilding(buildingId) {
-    if (confirm(`האם את בטוחה שברצונך למחוק את בניין #${buildingId} לחלוטין מהמערכת?`)) {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${API_BASE_URL}/buildings/${buildingId}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            
-            if (response.ok) {
-                alert('הבניין נמחק בהצלחה!');
-                loadBuildings(); // רענון טבלת הבניינים
-            } else {
-                alert('שגיאה במחיקת הבניין מהשרת');
-            }
-        } catch (error) {
-            console.error('שגיאה במחיקת הבניין:', error);
-        }
-    }
-}

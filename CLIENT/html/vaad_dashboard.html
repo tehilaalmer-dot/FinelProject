@@ -51,10 +51,11 @@
                 </table>
             </section>
 
-            <!-- 2. מערכת ניהול פניות וצ'אט (Socket) -->
+ <div class="main-panel">
+            <!-- טבלת פניות -->
             <section class="arch-card">
-                <h2>BUILDING APPLICATIONS / ניהול פניות בבניין (סוקט)</h2>
-                <table class="arch-table" style="margin-bottom: 20px;">
+                <h2>BUILDING APPLICATIONS / ניהול פניות</h2>
+                <table class="arch-table">
                     <thead>
                         <tr>
                             <th>דירה</th>
@@ -63,42 +64,20 @@
                             <th>פעולה</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>דירה 12</td>
-                            <td>נזילה קלה בקומה 3 ליד המעליות</td>
-                            <td><span style="color: #f57c00;">בטיפול</span></td>
-                            <td><button class="btn-arch" onclick="openChat(12)">פתח התכתבות</button></td>
-                        </tr>
+                    <tbody id="tickets-table-body">
+                        <!-- כאן המידע ייטען אוטומטית -->
                     </tbody>
                 </table>
-
-                <!-- אזור הצ'אט המשותף של הסוקט -->
-                <div class="chat-container" id="chat-section" style="display: none;">
-                    <div>
-                        <span style="font-size:12px; color:var(--text-muted);">צ'אט מול דירה 12</span>
-                        <div class="chat-box" id="chat-messages">
-                            <div class="msg tenant">שלום, יש נזילה מים קלה בקומה 3 ליד המעליות.</div>
-                            <div class="msg vaad">היי, תודה על הדיווח. חברת האחזקה עודכנה ותגיע בשעה הקרובה.</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                        <div class="form-group">
-                            <label>שנה סטטוס פנייה</label>
-                            <select class="form-control">
-                                <option>פתוח</option>
-                                <option selected>בטיפול</option>
-                                <option>סגור</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="הקלד הודעה לדייר...">
-                            <button class="btn-arch" style="width: 100%; margin-top: 10px;">שלח הודעה בזמן אמת</button>
-                        </div>
-                    </div>
-                </div>
             </section>
+
+            <!-- אזור הצ'אט -->
+            <div class="chat-container" id="chat-section" style="display: none;">
+                <div class="chat-box" id="chat-messages"></div>
+                <input type="text" id="vaadMsgInput" placeholder="הקלד הודעה...">
+                <button class="btn-arch" id="sendVaadMsg">שלח הודעה</button>
+            </div>
         </div>
+
 
         <!-- צד שמאל: טפסים ועדכונים (הוצאות ולוח מודעות) -->
         <div class="side-panel" style="display: flex; flex-direction: column; gap: 25px;">
@@ -135,6 +114,14 @@
                 </form>
             </section>
         </div>
+        <table>
+    <thead>
+        <tr><th>דירה</th><th>נושא התקלה</th><th>סטטוס</th><th>פעולה</th></tr>
+    </thead>
+    <tbody id="tickets-table-body">
+        <!-- כאן יופיעו השורות מה-JS -->
+    </tbody>
+</table>
     </main>
 
     <script>
@@ -150,5 +137,9 @@
             document.getElementById('chat-section').style.display = 'grid';
         }
     </script>
+    <!-- תוסיפי את השורה הזו ב-HTML שלך מעל ה-script של dashboard.js -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+    <script src="../js/vaad_dashboard.js"></script>
 </body>
 </html>

@@ -22,12 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json();
+           
 
             if (response.ok && data.success) {
                 // === 4. שמירת המידע ב-LocalStorage ===
                 // שומרים את הטוקן שקיבלנו לאימות עתידי בבקשות לשרת
                 localStorage.setItem('token', data.token);
-                
+                // ב-login.js (כשיש הצלחה)
+localStorage.setItem('buildingId', data.user.buildingId);
                 // הופכים את אובייקט המשתמש לטקסט ושומרים אותו
                 localStorage.setItem('user', JSON.stringify(data.user));
 
@@ -35,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // === 5. ניתוב אוטומטי לפי תפקיד (Role) ===
                 // אם המשתמש הוא ועד בית ('vaad'), נשלח אותו לדף המנהל, אחרת לדף דייר רגיל
-                if (data.user.role === 'vaad') {
+                if (data.user.role === 'manager') {
+                    window.location.href = 'admin_dashboard.html';
+                } else if (data.user.role === 'vaad') {
                     window.location.href = 'vaad_dashboard.html'; // או נתיב אחר שלכן לדף ועד הבית
                 } else {
                     window.location.href = 'dashboard.html'; // או נתיב אחר שלכן לדף הדייר

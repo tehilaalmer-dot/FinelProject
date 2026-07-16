@@ -9,6 +9,16 @@
         
   
 </head>
+<style>
+    /* סגנון גלילה לטבלאות */
+   html, body {
+    height: auto;       /* מאפשר לעמוד לגדול בהתאם לתוכן */
+    min-height: 100vh;  /* גובה מינימלי של מסך מלא */
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;   /* מוודא שפס הגלילה יופיע כשצריך */
+}
+</style>
 <body>
 
     <header class="arch-header">
@@ -21,49 +31,37 @@
         <!-- כרטיס בניינים -->
         <section class="arch-card">
             <h2>BUILDINGS MANAGEMENT / ניהול בניינים במערכת</h2>
+            <div class="table-container">
+
+
             <table class="arch-table">
                 <thead>
                     <tr>
                         <th>מזהה בניין</th>
-                        <th>שם המגדל</th>
                         <th>עיר / מיקום</th>
+                        <th>כתובת</th>
                         <th>כמות דיירים</th>
-                        <th>פעולות ניהול</th>
+                       
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>#B-9021</strong></td>
-                        <td>מגדל המאה</td>
-                        <td>תל אביב-יפו</td>
-                        <td>48 דיירים</td>
-                        <td>
-                            <button class="btn-arch" onclick="deleteBuilding('#B-9021')">מחק בניין</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>#B-4412</strong></td>
-                        <td>מגדלי פנורמה</td>
-                        <td>חיפה</td>
-                        <td>32 דיירים</td>
-                        <td>
-                            <button class="btn-arch" onclick="deleteBuilding('#B-4412')">מחק בניין</button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
+            </div>
         </section>
 
         <!-- כרטיס משתמשים -->
         <section class="arch-card">
             <h2>USERS MANAGEMENT / ניהול כלל המשתמשים</h2>
+                 <div class="table-container">
             <table class="arch-table">
                 <thead>
                     <tr>
                         <th>שם מלא</th>
                         <th>דואר אלקטרוני</th>
                         <th>תפקיד במערכת</th>
-                        <th>שיוך בניין</th>
+                        <th>קוד בניין</th>
                         <th>סטטוס</th>
                         <th>פעולות ניהול</th>
                     </tr>
@@ -91,21 +89,19 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </section>
 
     </main>
 
     <script>
-        function deleteBuilding(buildingId) {
-            if (confirm('האם את בטוחה שברצונך למחוק את בניין ' + buildingId + ' לחלוטין מהמערכת?')) {
-                alert('הבניין ' + buildingId + ' נמחק.');
-            }
-        }
+       
 
         function toggleBlockUser(userName, shouldBlock) {
             const action = shouldBlock ? 'נחסם' : 'שוחרר מחסימה';
             alert('המשתמש ' + userName + ' ' + action + ' בהצלחה.');
         }
     </script>
+    <script src="../js/admin_dashboard.js"></script>
 </body>
 </html>

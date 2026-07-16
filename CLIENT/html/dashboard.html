@@ -45,27 +45,45 @@
                     </div>
                 </div>
             </div>
+            <!-- רשימת פניות בצד -->
+<div class="arch-card" id="ticketsListCard">
+    <h3 class="arch-card-title">MY TICKETS / פניותיי</h3>
+    <div id="ticketsList" class="tickets-list">
+        <!-- כאן יופיעו הטיקטים ב-JS -->
+    </div>
+</div>
+
+<!-- (הצ'אט שלך נשאר כאן...) -->
 
             <!-- 💬 3. מערכת פניות וצ'אט מול ועד הבית -->
-            <div class="arch-card" id="supportCard">
-                <div>
-                    <h3 class="arch-card-title">COMMUNICATION / פנייה לוועד</h3>
-                    
-                    <!-- חלון תצוגת ההודעות (החלפת המידע תיעשה בעתיד עם ה-Socket) -->
-                    <div class="chat-box" id="chatBox">
-                        <div class="chat-msg msg-tenant">שלום, יש נזילת מים קלה בקומה 3 ליד המעליות.</div>
-                        <div class="chat-msg msg-vaad">היי, תודה על הדיווח. חברת האחזקה עודכנה ותגיע בשעה הקרובה.</div>
-                    </div>
-                </div>
+           <div class="arch-card" id="supportCard">
+    <div>
+        <h3 class="arch-card-title">COMMUNICATION / פנייה לוועד</h3>
+        <button type="button" onclick="startNewTicket()" class="arch-btn-new">
+    + פנייה חדשה
+</button>
+        <!-- חלון תצוגת ההודעות -->
+        <div class="chat-box" id="chatBox" style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+          
+        </div>
+    </div>
 
-                <!-- טופס שליחת הודעה/פנייה חדשה -->
-                <form id="chatForm">
-                    <div class="arch-form-group" style="margin-bottom: 1rem;">
-                        <input type="text" id="chatInput" name="message" class="arch-control" placeholder="הקלד הודעה לוועד הבית..." required>
-                    </div>
-                    <button type="submit" class="arch-btn" style="width: 100%;">שלח הודעה</button>
-                </form>
-            </div>
+    <!-- טופס שליחת הודעה -->
+   <form id="chatForm">
+    <!-- נכניס את שדות הנושא לתוך מעטפת שניתן להעלים -->
+    <div id="newTicketFields">
+        <input type="text" id="ticketTitle" class="arch-control" placeholder="נושא הפנייה" required>
+        <select id="ticketType" class="arch-control">
+            <option value="maintenance">תחזוקה</option>
+            <option value="complaint">תלונה</option>
+            <option value="other">אחר</option>
+        </select>
+    </div>
+
+    <textarea id="chatInput" class="arch-control" placeholder="פרטי הפנייה..." required></textarea>
+    <button type="submit" id="submitTicketButton" class="arch-btn">שלח</button>
+</form>
+</div>
 
         </div>
     </main>
@@ -106,6 +124,9 @@
             </form>
         </div>
     </div>
+    <!-- תוסיפי את השורה הזו ב-HTML שלך מעל ה-script של dashboard.js -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
 <script src="../js/dashboard.js"></script>
 </body>
 </html>

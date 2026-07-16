@@ -705,18 +705,101 @@ body {
     border-radius: 0;
     transition: border-color 0.2s ease;
 }
+/* לכל הדפדפנים */
+::-webkit-scrollbar {
+    width: 10px; /* רוחב הגלגלת */
+}
+#chatBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+.msg-vaad {
+    background-color: #007bff; /* כחול */
+    color: white;
+    align-self: flex-start; /* צד שמאל */
+    padding: 10px;
+    border-radius: 15px 15px 0 15px;
+    max-width: 70%;
+}
+.tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.arch-btn-list {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: right;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.arch-btn-list:hover {
+    background: #e2e6ea;
+}
+
+.msg-tenant {
+    background-color: #e5e5ea; /* אפור */
+    color: black;
+    align-self: flex-end; /* צד ימין */
+    padding: 10px;
+    border-radius: 15px 15px 15px 0;
+    max-width: 70%;
+}
+
+/* הרקע של הגלגלת */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* החלק שזז בגלגלת */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+html, body {
+    height: auto !important;     /* מבטל הגבלת גובה קשיחה */
+    min-height: 100vh;           /* מוודא שזה לפחות גובה המסך */
+    overflow-y: auto !important; /* כופה את הופעת הגלגלת */
+    overflow-x: hidden;          /* מונע גלילה לצדדים אם יש אלמנטים רחבים מדי */
+}
+/* צבע כשעומדים עם העכבר על הגלגלת */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
 .form-control:focus {
     border-color: var(--text-dark);
     outline: none;
 }
-
+/* נניח שהטבלה עטופה ב-div עם class בשם table-container */
+.table-container {
+    max-height: 400px; /* הגובה המקסימלי לפני שמופיע פס גלילה */
+    overflow-y: auto;  /* זה מה שיוצר את הגלילה */
+    display: block;    /* נדרש כדי שה-max-height יעבוד על הטבלה */
+}
 /* תגיות סטטוס עדינות */
 .badge {
     padding: 4px 10px;
     font-size: 11px;
     font-weight: 500;
     display: inline-block;
+}
+table {
+    width: 80%; /* או כל אחוז אחר שתרצי */
+    margin: 0 auto; /* מרכז את הטבלה בדף */
+    font-size: 14px; /* הקטנת הגופן מקטינה אוטומטית את הטבלה */
+    border-collapse: collapse; /* גורם לטבלה להיראות דחוסה ומקצועית יותר */
+}
+
+/* הקטנת הריווח בתוך התאים */
+td, th {
+    padding: 8px 12px; /* תורידי את המספרים האלו אם את רוצה שהם יהיו צפופים יותר */
 }
 .badge.paid { 
     background-color: #e8f5e9; 
@@ -748,6 +831,8 @@ body {
     gap: 10px;
 }
 
+/* הודעות של הדייר - צד ימין, אפור/לבן */
+
 .msg {
     padding: 10px 14px;
     max-width: 75%;
@@ -755,16 +840,29 @@ body {
     line-height: 1.4;
 }
 
-.msg.tenant {
-    background-color: #eef0f2;
-    color: var(--text-dark);
-    align-self: flex-start;
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
 }
 
-.msg.vaad {
-    background-color: var(--button-bg);
-    color: #ffffff;
-    align-self: flex-end;
+.msg-vaad {
+    background-color: #007bff; /* כחול */
+    color: white;
+    align-self: flex-start; /* צד שמאל */
+    padding: 10px;
+    border-radius: 15px 15px 0 15px;
+    max-width: 70%;
+}
+
+.msg-tenant {
+    background-color: #e5e5ea; /* אפור */
+    color: black;
+    align-self: flex-end; /* צד ימין */
+    padding: 10px;
+    border-radius: 15px 15px 15px 0;
+    max-width: 70%;
 }
 
 input[type="file"]::file-selector-button {

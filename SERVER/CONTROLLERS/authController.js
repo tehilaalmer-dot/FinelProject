@@ -8,7 +8,7 @@ const authController = {
     // 1. פונקציית ההרשמה (מצפינה סיסמה ושומרת ב-DB)
     async register(req, res) {
         console.log("Register function started");
-        const { name, email, password, role, building_id } = req.body;
+        const { name, email, password, phone, role, building_id, apartmentnumber, floor } = req.body;
 
         if (!name || !email || !password || !role) {
             return res.status(400).json({ message: "נא למלא את כל שדות החובה: name, email, password, role" });
@@ -27,11 +27,14 @@ const authController = {
 
             // יצירת המשתמש ב-DB עם הסיסמה המוצפנת
             await User.create({
-               full_name: name,
+                full_name: name,
                 email,
                 user_password: hashedPassword,
+                phone,
                 role,
-                 building_id: building_id || null
+                building_id: building_id || null,
+                apartmentnumber: apartmentnumber || null,
+                floor: floor || null
             });
 
             res.status(201).json({ success: true, message: "ההרשמה בוצעה בהצלחה!" });
@@ -40,6 +43,7 @@ const authController = {
             res.status(500).json({ message: "שגיאה בתהליך ההרשמה", error: error.message });
         }
     },
+
     // 2. פונקציית ההתחברות (בודקת סיסמה ומנפיקה טוקן JWT)
     async login(req, res) {
         console.log("Login function started");
@@ -57,30 +61,29 @@ const authController = {
             if (!user) {
                 return res.status(401).json({ message: "אימייל או סיסמה שגויים" });
             }
-            console.log("Password from user:", password);
-console.log("Password from DB:", user.user_password); // (או השם של השדה אצלך)
+            if (user.status === 'blocked') {
+            return res.status(403).json({ message: 'הגישה שלך נחסמה על ידי ועד הבניין. נא לפנות למנהל המערכת.' });
+        }
 
-if (!password || !user.user_password) {
-    return res.status(400).json({ message: "Password is missing in DB or request" });
-}
-
-// עכשיו ה-compare:
-
+            if (!password || !user.user_password) {
+                return res.status(400).json({ message: "Password is missing in DB or request" });
+            }
 
             // השוואת הסיסמה שהוזנה עם הסיסמה המוצפנת מה-DB
-           // השוואת הסיסמה שהוזנה עם הסיסמה המוצפנת מה-DB
-// אנחנו מוודאים ששני הערכים הם מחרוזות (String)// שימוש ב-toString() מפורש כדי להבטיח שה-bcrypt יקבל מחרוזות רגילות
-const isMatch = await bcrypt.compare(password.toString(), user.user_password.toString());
+            const isMatch = await bcrypt.compare(password.toString(), user.user_password.toString());
             if (!isMatch) {
                 return res.status(401).json({ message: "אימייל או סיסמה שגויים" });
             }
 
-            // יצירת הטוקן
+            // ⚠️ חשוב: שמות השדות כאן (id, building_id) חייבים להיות זהים
+            // לשמות שבהם משתמשים ב-middleware וב-controllers (req.user.id, req.user.building_id).
+            // אם עמודת ה-ID הראשי בטבלת users נקראת "idusers" ולא "id",
+            // יש לוודא ש-User.getByEmail מחזיר אותה עם alias בשם id (למשל: SELECT idusers AS id ...)
             const token = jwt.sign(
-                { 
-                    userId: user.id, 
-                    role: user.role, 
-                    buildingId: user.building_id 
+                {
+                    id: user.id,
+                    role: user.role,
+                    building_id: user.building_id
                 },
                 JWT_SECRET,
                 { expiresIn: '24h' } // תוקף ל-24 שעות

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'my_super_secret_key_123';
+const JWT_SECRET = process.env.JWT_SECRET || 'my_super_secret_key_123';
 
 /**
  * 🔒 1. בדיקה שהמשתמש בכלל מחובר (Authentication)
@@ -13,10 +13,10 @@ export const protect = (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, JWT_SECRET);
-            
+
             // שומרים את פרטי המשתמש המחובר על ה-req כדי שהקונטרולר ידע מי מבצע את הפעולה
-            req.user = decoded; 
-            return next(); 
+            req.user = decoded;
+            return next();
         } catch (error) {
             return res.status(401).json({ error: "אינך מורשה, הטוקן פג תוקף או שגוי" });
         }
@@ -37,13 +37,13 @@ export const restrictTo = (...allowedRoles) => {
             return res.status(500).json({ error: "שגיאת שרת: יש להריץ אימות protect לפני בדיקת תפקיד" });
         }
 
-        // בדיקה אם תפקיד המשתמש (לשל 'dayar' או 'vaad') מורשה לבצע את הפעולה
+        // בדיקה אם תפקיד המשתמש (למשל 'dayar' או 'vaad') מורשה לבצע את הפעולה
         if (!allowedRoles.includes(req.user.role)) {
-            return res.status(403).json({ 
-                error: `גישה חסומה! הפעולה מיועדת רק לדרג: ${allowedRoles.join(', ')}` 
+            return res.status(403).json({
+                error: `גישה חסומה! הפעולה מיועדת רק לדרג: ${allowedRoles.join(', ')}`
             });
         }
 
-        next(); 
+        next();
     };
 };
