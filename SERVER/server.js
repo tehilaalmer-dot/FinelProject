@@ -20,6 +20,19 @@ import paymentRoutes from './routes/paymentRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log("Static files directory:", path.join(__dirname, 'uploads'));
+// נוודא שהנתיב לתיקיית הקבצים מוגדר בצורה רחבה
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use((req, res, next) => {
+    if (req.url.startsWith('/uploads')) {
+        console.log("📥 ניסיון גישה לקובץ:", req.url);
+    }
+    next();
+});
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -29,9 +42,6 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads',  'receipts')));
 
 // הגדרת הנתיבים
 app.use('/api', buildingRoutes);
