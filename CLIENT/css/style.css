@@ -139,6 +139,14 @@ body {
     color: #ffffff;
 }
 
+.btn-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    background: #ccc;
+    color: #666;
+    border-color: #ccc;
+}
+
 .arch-btn-dark {
     background: var(--text-dark);
     color: #ffffff;
@@ -213,8 +221,8 @@ body {
 
         body, html {
             height: 100%;
-            overflow: hidden;
-            background-color: #000;
+            overflow: auto; /* allow page scrolling */
+            background-color: transparent;
         }
 
         /* ========================================================= */
@@ -324,6 +332,11 @@ body {
             letter-spacing: 1px;
         }
 
+        .arch-card {
+            max-height: 65vh; /* allow cards to scroll if content large */
+            overflow: auto;
+        }
+
         /* טפסים בסגנון פרימיום נקי */
         .form-group {
             margin-bottom: 1.8rem;
@@ -351,6 +364,34 @@ body {
             outline: none;
             border-bottom-color: var(--text-dark);
         }
+
+/* טבלאות רספונסיביות: גלילה אופקית במכשירים קטנים */
+.arch-card table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+}
+.large-expenses-scroll {
+    max-height: 400px; /* הגובה הרצוי בפיקסלים */
+    overflow-y: auto;  /* מוסיף גלילה אם התוכן ארוך מהגובה */
+    overflow-x: auto;  /* חשוב למקרה שהטבלה רחבה מדי */
+}
+
+@media (max-width: 600px) {
+    .arch-card { padding: 1rem; }
+    .arch-grid { gap: 1rem; grid-template-columns: 1fr; }
+    .arch-card-title { font-size: 0.95rem; }
+    .arch-btn, .arch-btn-dark { padding: 0.75rem 1rem; font-size: 0.75rem; }
+}
+
+/* Vaad dashboard specific responsive tweaks */
+@media (max-width: 800px) {
+    .vaad-compact .arch-grid { grid-template-columns: 1fr; }
+    .vaad-compact table.arch-table { display: block; width: 100%; overflow-x: auto; }
+    .vaad-compact .arch-card { padding: 0.75rem; }
+    .vaad-compact .arch-card-title { font-size: 0.9rem; }
+    .vaad-compact .arch-table th, .vaad-compact .arch-table td { white-space: nowrap; }
+}
 
         /* כפתור ארכיטקטורה שטוח וחד */
         .btn-submit {
@@ -528,7 +569,8 @@ body {
           /* סגנון ייעודי קטן לחלון הצ'אט האדריכלי */
         .chat-box {
             border: 1px solid var(--border-color);
-            height: 200px;
+            min-height: 260px;
+            max-height: 420px;
             overflow-y: auto;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -538,9 +580,12 @@ body {
             gap: 0.75rem;
         }
         .chat-msg {
-            max-width: 80%;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.85rem;
+            max-width: 75%;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 22px;
+            line-height: 1.4;
+            word-break: break-word;
         }
         .msg-tenant {
             background: #111111;
@@ -548,9 +593,19 @@ body {
             align-self: flex-start;
         }
         .msg-vaad {
-            background: #eeeeee;
-            color: #111111;
+            background: #dbeafe;
+            color: #1e3a8a;
             align-self: flex-end;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .table-scroll {
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
          .auth-container-centered {
             min-height: 75vh;
@@ -604,8 +659,11 @@ body {
     display: grid;
     grid-template-columns: 1.8fr 1.2fr;
     gap: 35px;
-    margin-bottom: 40px;
+    margin: 20px auto 40px;
     align-items: start;
+    justify-content: center;
+    width: min(1280px, 100%);
+    padding: 0 16px;
 }
 
 @media (max-width: 900px) {
@@ -714,6 +772,21 @@ body {
     flex-direction: column;
     gap: 10px;
 }
+.weather-card {
+    background: #f7fbff;
+    border: 1px solid #dbeafe;
+    padding: 1rem;
+    border-radius: 6px;
+    color: #0f172a;
+    font-size: 0.95rem;
+}
+.weather-card h4 {
+    margin: 0 0 0.65rem;
+    font-size: 1rem;
+}
+.weather-card p {
+    margin: 0.35rem 0;
+}
 
 .msg-vaad {
     background-color: #007bff; /* כחול */
@@ -764,7 +837,7 @@ body {
     border-radius: 5px;
 }
 html, body {
-    height: auto !important;     /* מבטל הגבלת גובה קשיחה */
+    height: auto ;     /* מבטל הגבלת גובה קשיחה */
     min-height: 100vh;           /* מוודא שזה לפחות גובה המסך */
     overflow-y: auto !important; /* כופה את הופעת הגלגלת */
     overflow-x: hidden;          /* מונע גלילה לצדדים אם יש אלמנטים רחבים מדי */
@@ -874,3 +947,49 @@ input[type="file"]::file-selector-button {
     font-size: 11px;
     margin-left: 10px;
 }
+
+/* small floating new ticket button */
+.arch-btn-new {
+    
+    right: 18px;
+    bottom: 18px;
+   position: fixed;
+    color: #2e2727;
+   
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 1400;
+}
+
+.tickets-list { max-height: 40vh; overflow: auto; }
+
+/* vaad compact tables */
+.vaad-compact .arch-card { padding: 1rem; }
+.vaad-compact table { font-size: 0.9rem; }
+.vaad-compact .arch-card-title { font-size: 0.95rem; }
+
+/* Responsive: stack panels, make tables nicer on small screens */
+@media (max-width: 800px) {
+    .vaad-compact { grid-template-columns: 1fr; gap: 12px; }
+    .arch-card { padding: 12px; }
+    .arch-table { font-size: 0.95rem; }
+    .arch-btn { padding: 0.45rem 0.65rem; }
+}
+
+@media (max-width: 480px) {
+    .arch-table thead { display: none; }
+    .arch-table, .arch-table tbody, .arch-table tr, .arch-table td { display: block; width: 100%; }
+    .arch-table tr { margin-bottom: 12px; border: 1px solid var(--muted); padding: 8px; }
+    .arch-table td { text-align: right; padding: 6px 8px; }
+    .arch-table td::before { content: attr(data-label); float: left; font-weight:600; }
+    .arch-btn { width: 100%; }
+    .arch-header h1 { font-size: 1.1rem; }
+    .arch-card { padding: 10px; }
+    .arch-btn-new { right: 14px; bottom: 14px; }
+}
+.vaad-compact .arch-table th, .vaad-compact .arch-table td { padding: 0.5rem 0.75rem; }
+.vaad-compact .arch-card { max-height: 60vh; overflow: auto; }

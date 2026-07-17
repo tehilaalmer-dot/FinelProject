@@ -17,10 +17,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const role = document.getElementById('role').value;
         const city = document.getElementById('city').value.trim();
         const streetAndNumber = document.getElementById('street_and_number').value.trim();
-        
-        
-        // 3. הגדרת משתני חובה
-        const buildingId = 1; 
+    let buildingId=3;    
+//     if(role==="dayar")
+//         {
+            
+
+// try {
+//     const buildingResponse = await fetch(
+//         `http://localhost:3000/api/buildings/street/${encodeURIComponent(streetAndNumber)}/city/${encodeURIComponent(city)}`
+//     );
+
+//     const building = await buildingResponse.json();
+
+//     if (!buildingResponse.ok) {
+//         alert("לא נמצא בניין בכתובת שהוזנה");
+//         return;
+//     }
+
+//     buildingId = building.id;   // או building.building_id - תלוי מה השרת מחזיר
+// }
+// catch (err) {
+//     console.error(err);
+//     alert("שגיאה בחיפוש הבניין");
+//     return;
+// }
+
+//         }
+
 
         // 4. בניית אובייקט הנתונים (מוודאים שאין ערכי null בשדות קריטיים)
         const registerData = {

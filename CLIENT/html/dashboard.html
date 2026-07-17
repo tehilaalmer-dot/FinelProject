@@ -14,6 +14,7 @@
     <nav class="arch-nav">
         <a href="index.html" class="arch-logo">HOMEPULSE <span>/ ARCH</span></a>
         <div class="user-tag" id="userTag">מגדלי המאה / דירה 12</div>
+        <button id="logoutBtn" class="arch-btn">התנתק</button>
     </nav>
 
     <main class="arch-container">
@@ -30,6 +31,28 @@
                     </div>
                 </div>
                 <button class="arch-btn arch-btn-dark" style="width: 100%;" onclick="document.getElementById('archPaymentModal').style.display='flex'">הסדרת תשלום באשראי</button>
+            </div>
+
+            <!-- 🧾 טבלת הוצאות לתשלום (דייר) -->
+            <div class="arch-card" id="expensesCard">
+                <h3 class="arch-card-title">הוצאות לתשלום</h3>
+                <div class="table-scroll large-expenses-scroll">
+                    <table class="arch-table" id="tenant-expenses-table">
+                        <thead>
+                            <tr>
+                                <th>הוצאה</th>
+                                <th>סכום (ש"ח)</th>
+                                <th>תאריך</th>
+                                <th>קבלה</th>
+                                <th>סטטוס</th>
+                                <th>פעולה</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tenant-expenses-body">
+                            <tr><td colspan="5">טוען הוצאות...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- 📢 2. לוח מודעות ועד הבית (חד-כיווני) -->
@@ -52,42 +75,30 @@
         <!-- כאן יופיעו הטיקטים ב-JS -->
     </div>
 </div>
+<!-- הכפתור מחוץ לכרטיס -->
+<button type="button" onclick="startNewTicket()" class="arch-btn-new"> פנייה חדשה</button>
 
-<!-- (הצ'אט שלך נשאר כאן...) -->
-
-            <!-- 💬 3. מערכת פניות וצ'אט מול ועד הבית -->
-           <div class="arch-card" id="supportCard">
-    <div>
-        <h3 class="arch-card-title">COMMUNICATION / פנייה לוועד</h3>
-        <button type="button" onclick="startNewTicket()" class="arch-btn-new">
-    + פנייה חדשה
-</button>
-        <!-- חלון תצוגת ההודעות -->
-        <div class="chat-box" id="chatBox" style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
-          
+<!-- כרטיס הצ'אט -->
+<div class="arch-card" id="supportCard" style="display: none;">
+    <h3 class="arch-card-title">צ'אט מול הוועד</h3>
+    
+    <div class="chat-box" id="chatBox"></div>
+    
+    <form id="chatForm">
+        <!-- זה חייב להיות קיים! -->
+        <div id="newTicketFields">
+            <input type="text" id="ticketTitle" class="arch-control" placeholder="נושא הפנייה" >
+            <select id="ticketType" class="arch-control">
+                <option value="maintenance">תחזוקה</option>
+                <option value="complaint">תלונה</option>
+                <option value="other">אחר</option>
+            </select>
         </div>
-    </div>
 
-    <!-- טופס שליחת הודעה -->
-   <form id="chatForm">
-    <!-- נכניס את שדות הנושא לתוך מעטפת שניתן להעלים -->
-    <div id="newTicketFields">
-        <input type="text" id="ticketTitle" class="arch-control" placeholder="נושא הפנייה" required>
-        <select id="ticketType" class="arch-control">
-            <option value="maintenance">תחזוקה</option>
-            <option value="complaint">תלונה</option>
-            <option value="other">אחר</option>
-        </select>
-    </div>
-
-    <textarea id="chatInput" class="arch-control" placeholder="פרטי הפנייה..." required></textarea>
-    <button type="submit" id="submitTicketButton" class="arch-btn">שלח</button>
-</form>
+        <textarea id="chatInput" class="arch-control" placeholder="תאור הפנייה.." ></textarea>
+        <button type="submit" class="arch-btn">שלח</button>
+    </form>
 </div>
-
-        </div>
-    </main>
-
     <!-- ========================================================= -->
     <!-- 💳 מודל סליקה מדומה (נשאר ללא שינוי, תואם לעמוד)              -->
     <!-- ========================================================= -->
